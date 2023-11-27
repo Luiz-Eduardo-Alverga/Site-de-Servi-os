@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `
 
 export const PostContainer = styled.div`
@@ -11,7 +12,7 @@ export const PostContainer = styled.div`
   flex-direction: column;
   width: 50%;
   margin-top: 4rem;
-  border-radius: 8px;
+  border-radius: 20px;
 
   background: ${(props) => props.theme['white-200']};
   color: ${(props) => props.theme['black-200']};
