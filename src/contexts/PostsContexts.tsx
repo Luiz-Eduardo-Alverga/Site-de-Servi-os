@@ -1,9 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReactNode, createContext, useState } from 'react'
-import { Post } from '../pages/CreatePosts'
 
+interface Post {
+  id: string
+  title: string
+  description: string
+  value: string
+  typeValue: string
+  initialHour: string
+  finalHour: string
+}
+
+interface CreatePostData {
+  title: string
+  description: string
+  value: string
+  typeValue: string
+  initialHour: string
+  finalHour: string
+}
 interface PostsContextsType {
-  createNewCycle: (data: Post) => void
+  posts: Post[]
+  createNewCycle: (data: CreatePostData) => void
 }
 
 interface PostsContextsProviderProps {
@@ -14,9 +32,19 @@ export const PostsContext = createContext({} as PostsContextsType)
 export function PostsContextsProvider({
   children,
 }: PostsContextsProviderProps) {
-  const [posts, setPosts] = useState([{}])
+  const [posts, setPosts] = useState([
+    {
+      id: '',
+      title: '',
+      description: '',
+      value: '',
+      typeValue: '',
+      initialHour: '',
+      finalHour: '',
+    },
+  ])
 
-  function createNewCycle(data: Post) {
+  function createNewCycle(data: CreatePostData) {
     const id = String(new Date().getTime())
 
     const newPost: Post = {
@@ -37,6 +65,7 @@ export function PostsContextsProvider({
   return (
     <PostsContext.Provider
       value={{
+        posts,
         createNewCycle,
       }}
     >

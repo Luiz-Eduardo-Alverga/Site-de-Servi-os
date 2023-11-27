@@ -13,16 +13,6 @@ import {
 } from './style'
 import { useContext } from 'react'
 
-export interface Post {
-  id?: string
-  title: string
-  description: string
-  value: string
-  typeValue: string
-  initialHour: string
-  finalHour: string
-}
-
 const newPostFormValidationSchema = zod.object({
   title: zod.string().min(6).max(20),
   description: zod.string().min(20).max(250),
@@ -49,12 +39,12 @@ export function CreateNewPost() {
     },
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { register, handleSubmit, reset, watch } = newPostForm
+  const { register, handleSubmit, reset } = newPostForm
 
   function handleCreateNewPost(data: NewPostFormData) {
     createNewCycle(data)
-    // reset()
+    reset()
+    alert('Post criado com sucesos')
   }
 
   return (
