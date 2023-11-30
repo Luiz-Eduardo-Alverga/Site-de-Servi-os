@@ -9,6 +9,7 @@ interface Post {
   typeValue: string
   initialHour: string
   finalHour: string
+  publishedAt: Date
 }
 
 interface CreatePostData {
@@ -18,6 +19,7 @@ interface CreatePostData {
   typeValue: string
   initialHour: string
   finalHour: string
+  publishedAt: Date
 }
 interface PostsContextsType {
   posts: Post[]
@@ -41,6 +43,7 @@ export function PostsContextsProvider({
       typeValue: '',
       initialHour: '',
       finalHour: '',
+      publishedAt: new Date(),
     },
   ])
 
@@ -55,12 +58,13 @@ export function PostsContextsProvider({
       typeValue: data.typeValue,
       initialHour: data.initialHour,
       finalHour: data.finalHour,
+      publishedAt: new Date(),
+
+      // publishedAt:
     }
 
     setPosts([...posts, newPost])
   }
-
-  console.log(posts)
 
   return (
     <PostsContext.Provider

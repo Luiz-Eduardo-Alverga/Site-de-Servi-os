@@ -1,5 +1,7 @@
 import { SearchForm } from '../../components/SearchForm/index'
 import { Asidebar } from '../../components/Sidebar/index'
+import { formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
 import { useContext } from 'react'
 import {
@@ -24,7 +26,7 @@ export function Post() {
       <SearchForm />
       <Container>
         {posts.map((post) => {
-          if (post.title === '') return ''
+          if (post.id === '') return ''
           return (
             <PostContainer key={post.id}>
               <AvatarUrl>
@@ -44,7 +46,13 @@ export function Post() {
                     {post.initialHour}
                   </strong>
                 </span>
-                <time>Postado há uma hora</time>
+                <time>
+                  publicado {''}
+                  {formatDistanceToNow(new Date(post.publishedAt), {
+                    addSuffix: true,
+                    locale: ptBR,
+                  })}
+                </time>
               </AvailabilityTime>
 
               <Assessments>

@@ -20,6 +20,7 @@ const newPostFormValidationSchema = zod.object({
   typeValue: zod.string(),
   initialHour: zod.string(),
   finalHour: zod.string(),
+  publishedAt: zod.date(),
 })
 
 type NewPostFormData = zod.infer<typeof newPostFormValidationSchema>
@@ -36,6 +37,7 @@ export function CreateNewPost() {
       finalHour: '',
       typeValue: '',
       value: '',
+      publishedAt: new Date(),
     },
   })
 
