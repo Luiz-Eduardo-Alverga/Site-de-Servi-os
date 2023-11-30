@@ -16,6 +16,8 @@ import {
 } from './style'
 import { Medal, Star } from 'phosphor-react'
 import { PostsContext } from '../../contexts/PostsContexts'
+import { priceFormatter } from '../../utils/formatter'
+// import { priceFormatter } from '../../utils/formatter'
 
 export function Post() {
   const { posts } = useContext(PostsContext)
@@ -26,7 +28,6 @@ export function Post() {
       <SearchForm />
       <Container>
         {posts.map((post) => {
-          if (post.id === '') return ''
           return (
             <PostContainer key={post.id}>
               <AvatarUrl>
@@ -66,7 +67,7 @@ export function Post() {
 
               <Payment>
                 <Values>
-                  <p>R$ {post.value}</p>
+                  <p>{priceFormatter.format(post.value)}</p>
                   <span>{post.typeValue}</span>
                 </Values>
                 <ButtonCotract>Contratar</ButtonCotract>

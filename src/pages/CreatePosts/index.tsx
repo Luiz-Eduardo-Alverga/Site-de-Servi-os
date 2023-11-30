@@ -16,7 +16,7 @@ import { useContext } from 'react'
 const newPostFormValidationSchema = zod.object({
   title: zod.string().min(6).max(20),
   description: zod.string().min(20).max(250),
-  value: zod.string(),
+  value: zod.number(),
   typeValue: zod.string(),
   initialHour: zod.string(),
   finalHour: zod.string(),
@@ -36,7 +36,7 @@ export function CreateNewPost() {
       initialHour: '',
       finalHour: '',
       typeValue: '',
-      value: '',
+      value: 0,
       publishedAt: new Date(),
     },
   })
@@ -46,7 +46,7 @@ export function CreateNewPost() {
   function handleCreateNewPost(data: NewPostFormData) {
     createNewCycle(data)
     reset()
-    alert('Post criado com sucesos')
+    alert('Post criado com sucesso')
   }
 
   return (
@@ -80,9 +80,10 @@ export function CreateNewPost() {
           <label htmlFor="">Valores</label>
           <MoneyInput>
             <input
-              type="text"
+              type="number"
+              step={5}
               placeholder="Digite o valor do seu serviço"
-              {...register('value')}
+              {...register('value', { valueAsNumber: true })}
             />
 
             <input

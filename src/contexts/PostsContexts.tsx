@@ -5,7 +5,7 @@ interface Post {
   id: string
   title: string
   description: string
-  value: string
+  value: number
   typeValue: string
   initialHour: string
   finalHour: string
@@ -15,7 +15,7 @@ interface Post {
 interface CreatePostData {
   title: string
   description: string
-  value: string
+  value: number
   typeValue: string
   initialHour: string
   finalHour: string
@@ -34,18 +34,7 @@ export const PostsContext = createContext({} as PostsContextsType)
 export function PostsContextsProvider({
   children,
 }: PostsContextsProviderProps) {
-  const [posts, setPosts] = useState([
-    {
-      id: '',
-      title: '',
-      description: '',
-      value: '',
-      typeValue: '',
-      initialHour: '',
-      finalHour: '',
-      publishedAt: new Date(),
-    },
-  ])
+  const [posts, setPosts] = useState<Post[]>([])
 
   function createNewCycle(data: CreatePostData) {
     const id = String(new Date().getTime())
@@ -59,8 +48,6 @@ export function PostsContextsProvider({
       initialHour: data.initialHour,
       finalHour: data.finalHour,
       publishedAt: new Date(),
-
-      // publishedAt:
     }
 
     setPosts([...posts, newPost])
