@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
+import { api } from '../lib/axios'
 
-interface Post {
+export interface Post {
   id: string
   title: string
   description: string
@@ -20,10 +21,13 @@ interface CreatePostData {
   initialHour: string
   finalHour: string
   publishedAt: Date
+  assements: number
 }
+
 interface PostsContextsType {
   posts: Post[]
-  createNewCycle: (data: CreatePostData) => void
+  createNewPost: (data: CreatePostData) => Promise<void>
+  fetchPosts: (query?: string) => Promise<void>
 }
 
 interface PostsContextsProviderProps {
@@ -36,28 +40,53 @@ export function PostsContextsProvider({
 }: PostsContextsProviderProps) {
   const [posts, setPosts] = useState<Post[]>([])
 
-  function createNewCycle(data: CreatePostData) {
-    const id = String(new Date().getTime())
+  async function fetchPosts(query?: string) {
+    const response = await api.get('/posts', {
+      params: {
+        _sort: 'publishedAt',
+        _order: 'desc',
+        q: query,
+      },
+    })
 
-    const newPost: Post = {
-      id,
-      title: data.title,
-      description: data.description,
-      value: data.value,
-      typeValue: data.typeValue,
-      initialHour: data.initialHour,
-      finalHour: data.finalHour,
-      publishedAt: new Date(),
-    }
-
-    setPosts([...posts, newPost])
+    setPosts(response.data)
   }
+
+  async function createNewPost(data: CreatePostData) {
+    const {
+      title,
+      description,
+      initialHour,
+      finalHour,
+      value,
+      typeValue,
+      assements,
+    } = data
+
+    const response = await api.post('posts', {
+      title,
+      description,
+      initialHour,
+      finalHour,
+      publishedAt: new Date(),
+      value,
+      typeValue,
+      assements,
+    })
+
+    setPosts((state) => [response.data, ...state])
+  }
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
 
   return (
     <PostsContext.Provider
       value={{
         posts,
-        createNewCycle,
+        createNewPost,
+        fetchPosts,
       }}
     >
       {children}

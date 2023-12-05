@@ -22,6 +22,10 @@ export const FormContainer = styled.form`
     width: 40rem;
     height: 3rem;
     border-radius: 8px;
+    padding: 1rem;
+    background: ${(props) => props.theme['white-200']};
+    border: 1px solid ${(props) => props.theme['gray-100']};
+    border-radius: 8px;
   }
 
   input::placeholder {
@@ -29,7 +33,11 @@ export const FormContainer = styled.form`
   }
 
   textarea {
-    width: 40rem;
+    max-width: 40rem;
+    border-radius: 8px;
+    padding: 1rem;
+    background: ${(props) => props.theme['white-200']};
+    border: 1px solid ${(props) => props.theme['gray-100']};
     border-radius: 8px;
   }
 
@@ -56,10 +64,34 @@ export const MoneyInput = styled.div`
   }
 `
 export const ButtonForm = styled.button`
+  border: 0;
   width: 40rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  margin-top: 0.5rem;
+  padding: 0.8rem;
+  background: ${(props) => props.theme['blue-300']};
+  color: ${(props) => props.theme['white-100']};
+  border-radius: 20px;
+  border: 1px solid ${(props) => props.theme['white-200']};
+  cursor: pointer;
+  transition: background-color 0.1s;
 
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
+    background: ${(props) => props.theme['blue-300']};
+    color: ${(props) => props.theme.white};
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+`
+
+export const ErrorsMessage = styled.p`
+  padding: 0;
+  color: ${(props) => props.theme['red-300']};
 `

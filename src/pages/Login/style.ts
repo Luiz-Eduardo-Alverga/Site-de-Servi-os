@@ -26,10 +26,6 @@ export const LoginContainer = styled.div`
     width: 30rem;
   }
 
-  /* h1 {
-    color: ${(props) => props.theme['blue-300']};
-  } */
-
   span {
     margin: 0 2rem 0;
     text-align: center;
@@ -47,7 +43,7 @@ export const FormContainer = styled.form`
   margin-top: 2rem;
 
   input {
-    width: 35rem;
+    width: 30rem;
     padding: 1rem;
     background: ${(props) => props.theme['white-200']};
     border: 1px solid ${(props) => props.theme['gray-100']};

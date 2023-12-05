@@ -10,41 +10,79 @@ import {
   TimeInput,
   MoneyInput,
   ButtonForm,
+  ErrorsMessage,
 } from './style'
+
 import { useContext } from 'react'
 
 const newPostFormValidationSchema = zod.object({
-  title: zod.string().min(6).max(20),
-  description: zod.string().min(20).max(250),
+  title: zod
+    .string()
+    .min(3, { message: 'O titulo precisa ter no minimo 3 caracteres' })
+    .max(20, { message: 'O titulo precisa ter no maximo 20 caracteres' }),
+  description: zod
+    .string()
+    .min(20, { message: 'A descrição precisa ter no minimo 20 caracteres' })
+    .max(250, { message: 'A descrição precisa ter no maximo 250 caracteres' }),
   value: zod.number(),
-  typeValue: zod.string(),
+  typeValue: zod.enum(['Preço Fixo', 'Preço por hora', 'Negociável'], {
+    errorMap: () => {
+      return { message: 'Voce precisa selecionar um dos 3 tipos listados' }
+    },
+  }),
   initialHour: zod.string(),
   finalHour: zod.string(),
   publishedAt: zod.date(),
+  assements: zod.number(),
 })
 
 type NewPostFormData = zod.infer<typeof newPostFormValidationSchema>
 
 export function CreateNewPost() {
-  const { createNewCycle } = useContext(PostsContext)
+  const { createNewPost } = useContext(PostsContext)
 
   const newPostForm = useForm<NewPostFormData>({
     resolver: zodResolver(newPostFormValidationSchema),
     defaultValues: {
       title: '',
       description: '',
-      initialHour: '',
-      finalHour: '',
-      typeValue: '',
-      value: 0,
+      initialHour: '08:00',
+      finalHour: '09:00',
+      // value: 0,
       publishedAt: new Date(),
+      assements: 0,
     },
   })
 
-  const { register, handleSubmit, reset } = newPostForm
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = newPostForm
 
-  function handleCreateNewPost(data: NewPostFormData) {
-    createNewCycle(data)
+  async function handleCreateNewPost(data: NewPostFormData) {
+    const {
+      title,
+      description,
+      initialHour,
+      finalHour,
+      value,
+      typeValue,
+      publishedAt,
+      assements,
+    } = data
+
+    await createNewPost({
+      title,
+      description,
+      initialHour,
+      value,
+      typeValue,
+      finalHour,
+      publishedAt,
+      assements,
+    })
     reset()
     alert('Post criado com sucesso')
   }
@@ -60,7 +98,11 @@ export function CreateNewPost() {
             type="text"
             placeholder="Digite o seu serviço"
             {...register('title')}
+            required
           />
+          {errors.title && (
+            <ErrorsMessage>{errors.title.message}</ErrorsMessage>
+          )}
 
           <label htmlFor="">Disponibiladade</label>
           <TimeInput>
@@ -69,28 +111,35 @@ export function CreateNewPost() {
               placeholder="Digite o horario inicial disponivel"
               defaultValue={'08:00'}
               {...register('initialHour')}
+              required
             />
             <input
               type="time"
               placeholder="Digite o horario final disponivel"
               defaultValue={'18:00'}
               {...register('finalHour')}
+              required
             />
           </TimeInput>
           <label htmlFor="">Valores</label>
           <MoneyInput>
             <input
               type="number"
-              step={5}
+              inputMode="numeric"
               placeholder="Digite o valor do seu serviço"
               {...register('value', { valueAsNumber: true })}
+              required
             />
 
             <input
               list="valores"
               placeholder="Digite o tipo de preço"
               {...register('typeValue')}
+              required
             />
+            {errors.typeValue && (
+              <ErrorsMessage>{errors.typeValue.message}</ErrorsMessage>
+            )}
           </MoneyInput>
 
           <label htmlFor="">Descrição</label>
@@ -101,6 +150,9 @@ export function CreateNewPost() {
             placeholder="Descreva sobre seu serviço"
             {...register('description')}
           ></textarea>
+          {errors.description && (
+            <ErrorsMessage>{errors.description.message}</ErrorsMessage>
+          )}
 
           <datalist id="valores">
             <option value="Preço Fixo"></option>
@@ -108,7 +160,9 @@ export function CreateNewPost() {
             <option value="Negociável"></option>
           </datalist>
 
-          <ButtonForm type="submit">Registrar</ButtonForm>
+          <ButtonForm type="submit" disabled={isSubmitting}>
+            Criar Postagem
+          </ButtonForm>
         </FormContainer>
       </CreatePostContainer>
     </>

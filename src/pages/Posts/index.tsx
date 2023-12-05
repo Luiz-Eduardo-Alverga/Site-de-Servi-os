@@ -2,6 +2,9 @@ import { SearchForm } from '../../components/SearchForm/index'
 import { Asidebar } from '../../components/Sidebar/index'
 import { formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+import teste from '../../assets/9334234.jpg'
+
+import { PostsContext } from '../../contexts/PostsContexts'
 
 import { useContext } from 'react'
 import {
@@ -12,18 +15,21 @@ import {
   Payment,
   Values,
   ButtonCotract,
-  Assessments,
 } from './style'
-import { Medal, Star } from 'phosphor-react'
-import { PostsContext } from '../../contexts/PostsContexts'
-import { priceFormatter } from '../../utils/formatter'
-// import { priceFormatter } from '../../utils/formatter'
+import { Medal } from 'phosphor-react'
+
+import { priceFormatter } from '../../utils/formater'
+import { Assements } from '../../components/assements'
 
 export function Post() {
   const { posts } = useContext(PostsContext)
 
+  function handleContractService() {
+    alert('Post contratado com sucesso')
+  }
+
   return (
-    <>
+    <div>
       <Asidebar></Asidebar>
       <SearchForm />
       <Container>
@@ -32,7 +38,7 @@ export function Post() {
             <PostContainer key={post.id}>
               <AvatarUrl>
                 <div>
-                  <img src="http://github.com/wagnerjcm.png" alt="" />
+                  <img src={teste} alt="" />
                   <span>{post.title}</span>
                 </div>
 
@@ -56,26 +62,21 @@ export function Post() {
                 </time>
               </AvailabilityTime>
 
-              <Assessments>
-                <div>
-                  <Star color="yellow" size={25}></Star>
-                  <span>4,5</span>
-                </div>
-
-                <span>235 avaliações</span>
-              </Assessments>
+              <Assements />
 
               <Payment>
                 <Values>
                   <p>{priceFormatter.format(post.value)}</p>
                   <span>{post.typeValue}</span>
                 </Values>
-                <ButtonCotract>Contratar</ButtonCotract>
+                <ButtonCotract onClick={() => handleContractService()}>
+                  Contratar
+                </ButtonCotract>
               </Payment>
             </PostContainer>
           )
         })}
       </Container>
-    </>
+    </div>
   )
 }

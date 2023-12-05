@@ -43,20 +43,6 @@ export const AvailabilityTime = styled.div`
   margin: 1rem;
 `
 
-export const Assessments = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin: 1.5rem;
-
-  div {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    gap: 0.3rem;
-  }
-`
-
 export const Payment = styled.div`
   display: flex;
   justify-content: space-between;

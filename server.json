@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Desing Grafico",
+      "description: ": "teste",
+      "value": 50,
+      "typeValue": "Preço fixo",
+      "initialHour": "18:00 horas",
+      "finalHour": "2023-11-30T00:10:40.718Z",
+      "publishedAt": "2023-12-03T00:10:40.718Z",
+      "assements": 0
+    },
+    {
+      "title": "Design",
+      "description": "pmdsndoadpkadkapkdapdaspdndaksmdapmdapdmapdm",
+      "initialHour": "08:00",
+      "finalHour": "19:00",
+      "publishedAt": "2023-12-05T00:35:56.231Z",
+      "value": 100,
+      "typeValue": "Preço Fixo",
+      "assements": 0,
+      "id": 2
+    },
+    {
+      "title": "art",
+      "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "initialHour": "08:00",
+      "finalHour": "09:00",
+      "publishedAt": "2023-12-05T00:38:17.557Z",
+      "value": 50,
+      "typeValue": "Preço Fixo",
+      "assements": 0,
+      "id": 3
+    },
+    {
+      "title": "Design",
+      "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "initialHour": "08:00",
+      "finalHour": "09:00",
+      "publishedAt": "2023-12-05T02:27:54.367Z",
+      "value": 50,
+      "typeValue": "Preço por hora",
+      "assements": 0,
+      "id": 4
+    }
+  ]
+}

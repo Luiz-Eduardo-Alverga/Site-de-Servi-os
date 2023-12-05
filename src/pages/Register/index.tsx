@@ -48,7 +48,7 @@ export function Register() {
           <span>
             Para se reconectar aperte no botão para logar com sua conta pessoal
           </span>
-          <NavLink to="/login">
+          <NavLink to="/login/login">
             <ButtonLogin>Entre aqui</ButtonLogin>
           </NavLink>
         </LoginContainer>

@@ -19,12 +19,17 @@ export const defaultTheme = {
   'gray-900': '#121214',
   'gray-default': '#A9A9A9',
 
+  '--light-gray-color': '#eee',
+
   'pink-100': '#FFECEF',
   'pink-500': '#FF637D',
 
   'black-100': '#000000',
   'black-200': '#2b2929',
 
-  teste: '#58af9c',
+  'red-300': '#F75A68',
+  'red-500': '#AB222E',
+  'red-700': '#7A1921',
+
   white: '#fff',
 }
